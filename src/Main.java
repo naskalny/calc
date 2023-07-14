@@ -6,17 +6,20 @@ public class Main {
     static int x;
     static int y;
 
-
     public static void main(String[] args) throws Exception {
 
         System.out.print("Введите выражение из двух операндров (Прим. 4+3):");
-        String userInput = scanner.nextLine().replaceAll(" ", "").toUpperCase();
+        String input = scanner.nextLine().replaceAll(" ", "").toUpperCase();
+        System.out.println(calc(input));
+    }
 
-        String operator = Validate.findOperator(userInput);
-        if (operator == null ) throw new Exception("//т.к. строка не является математической операцией");
+    public static String calc(String input) throws Exception {
+        String operator = Validate.findOperator(input);
+        if (operator == null) throw new Exception("//т.к. строка не является математической операцией");
 
-        String[] parts = userInput.split("[-+/*]");
-        if (parts.length != 2) throw new Exception("//т.к. формат математической операции не удовлетворяет заданию - два операнда и один оператор (+, -, /, *)");
+        String[] parts = input.split("[-+/*]");
+        if (parts.length != 2)
+            throw new Exception("//т.к. формат математической операции не удовлетворяет заданию - два операнда и один оператор (+, -, /, *)");
 
         if (Romanian.checkIsRoman(parts[0]) && Romanian.checkIsRoman(parts[1])) {
             x = Romanian.convertToArabic(parts[0]);
@@ -34,18 +37,14 @@ public class Main {
         if (!Validate.checkIsUntil10(x, y)) {
             throw new Exception("//т.к. используйте числа от 1 до 10");
         } else {
-            finalCalculate(operator, x, y);
-        }
-    }
-
-    public static void finalCalculate(String operator, int x, int y) throws Exception {
-        int result = Calculation.calculate(x, y, operator);
-        if (isRoman) {
-            if (result < 1)
-                throw new Exception("//т.к. в римской системе нет отрицательных чисел");
-            System.out.printf(Romanian.convertToRomanian(result));
-        } else {
-            System.out.printf(String.valueOf(result));
+            int result = Calculation.calculate(x, y, operator);
+            if (isRoman) {
+                if (result < 1)
+                    throw new Exception("//т.к. в римской системе нет отрицательных чисел");
+                return (Romanian.convertToRomanian(result));
+            } else {
+                return (String.valueOf(result));
+            }
         }
     }
 }

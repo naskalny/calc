@@ -1,4 +1,4 @@
-public class Calculation {
+class Calculation {
     public static int calculate(int x, int y, String operator) throws Exception {
 
         return switch (operator) {

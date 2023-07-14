@@ -1,4 +1,4 @@
-public class Validate {
+class Validate {
     public static boolean checkIsUntil10(int x, int y) {
         return x <= 10 && y <= 10;
     }
